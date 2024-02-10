@@ -1,0 +1,11 @@
+{
+  "name": "eufy-mqtt-motion-detection-bridge",
+  "version": "1.0.0",
+  "author": "aortmann <ariel.ortmann8@gmail.com>",
+  "type": "module",
+  "main": "main.js",
+  "dependencies": {
+    "eufy-security-client": "2.9.1",
+    "got": "^14.2.0"
+  }
+}
