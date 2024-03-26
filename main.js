@@ -22,11 +22,12 @@ eufyClient.then(async (client) => {
         client.getPushService().on('message', (message) => {
             const deviceName = message.name;
             const motionDetected = message.content?.indexOf('detected') > -1;
-            const mappedDeviceName = deviceName == 'Frente'? 'front' : deviceName == 'Cocina'? 'kitchen' : false;
+            const newMesssage = motionDetected? message.content.toLowerCase().replace("device", "").replace("detected", "").trim() : '';
+            const mappedDeviceName = deviceName == 'Frente'? 'front' : deviceName == 'Parque'? 'park' : 'unknown';
 
             if(motionDetected && mappedDeviceName) {
                 console.log(`Motion detected on ${deviceName}. Sending to frigate instance.`)
-                got.post(`http://${process.env.FRIGATE_API_URL}/api/events/${mappedDeviceName}/motion/create`, {
+                got.post(`http://${process.env.FRIGATE_API_URL}/api/events/${mappedDeviceName}/${newMesssage}/create`, {
                     json: {
                         duration: 60,
                         include_recording: true
